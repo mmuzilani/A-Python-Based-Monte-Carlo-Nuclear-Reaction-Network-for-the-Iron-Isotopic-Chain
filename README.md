@@ -1,5 +1,4 @@
 # A Python-Based Monte-Carlo Nuclear Reaction Network for the Iron Isotopic Chain
----
 
 Neutron-capture reactions are central to the production of heavy elements in stellar environments, particularly through the slow neutron-capture process (s-process). During this process, seed nuclei gradually capture neutrons and undergo β-decays, forming increasingly heavier isotopes. Accurate modeling of these nucleosynthesis pathways requires reliable nuclear physics inputs: energy-dependent neutron-capture cross sections \(\sigma(E)\), Maxwellian-Averaged Cross Sections (MACS), reaction rates \(\langle \sigma v \rangle\), and β-decay constants. Because experimental cross-section data are limited for many isotopes, theoretical nuclear reaction codes such as **TALYS** are widely used to generate complete sets of \(\sigma(E)\), which can then be validated and refined using databases like **KADoNiS** or **EXFOR**.
 
@@ -17,7 +16,7 @@ This project implements a complete, end-to-end workflow:
 - Abundance evolution and uncertainty quantification
 
 Together, these steps produce realistic nucleosynthesis predictions and provide insight into how nuclear uncertainties affect the formation of heavy isotopes in stars. The workflow mirrors modern computational methods used in nuclear astrophysics research.
-
+---
                          ┌─────────────────────────┐
                          │ TALYS σ(E) Cross Section│
                          │    (4 CSV files)        │
@@ -38,13 +37,13 @@ Together, these steps produce realistic nucleosynthesis predictions and provide 
                                            ▼
                      ┌────────────────────────────────────┐
                      │ Plot Maxwellian Integrand          │
-                     │   (Code: plot_integrand...)        │
+                     │   (Code: plot_integrand)           │
                      └────────────────────┬───────────────┘
                                           │
                                           ▼
                    ┌───────────────────────────────────────────┐
                    │ Monte-Carlo MACS Uncertainty (±10%)       │
-                   │  (Code: mc_macs_uncertainty...)           │
+                   │  (Code: mc_macs_uncertainty)              │
                    └────────────────────┬──────────────────────┘
                                          │
                                          ▼
@@ -53,11 +52,9 @@ Together, these steps produce realistic nucleosynthesis predictions and provide 
       │ Compute λ = nₙ⟨σv⟩ and λβ                                        │
       │ Solve ODE via Schur-Decomposition (200 Monte-Carlo runs)         │
       │ Plot abundance evolution + uncertainty bands                     │
-      │ (Code: full_network_solver)                                   │
+      │ (Code: full_network_solver)                                      │
       └──────────────────────────────────────────────────────────────────┘
-
-
-
+---
 ## Nuclear Reaction Data
 
 In stellar environments, heavy elements are built through a sequence of neutron-capture reactions and β-decays.  
@@ -426,22 +423,7 @@ This plot connects laboratory σ(E) to stellar behavior.
 
 ## Abundance Evolution — Solution of the 5-Isotope Network
 
-Using the ODE system:
-
-$$
-\frac{dY_i}{dt}
-=
--\lambda_i Y_i
-+
-\lambda_{i-1}Y_{i-1}
--
-\lambda_{\beta,i}Y_i,
-$$
-
 we compute the time evolution of all five Fe isotopes.
-
-### Interpretation of Abundance Curves
-
 - **56Fe** → initial seed, decreases  
 - **57Fe** → rises then falls  
 - **58Fe** → rises at later times  
