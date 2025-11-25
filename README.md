@@ -14,8 +14,9 @@ This project implements a complete, end-to-end workflow:
 - Construction of a five-isotope neutron-capture + β-decay reaction network
 - Numerical solution of the ODE system using matrix exponential (Schur decomposition)
 - Abundance evolution and uncertainty quantification
-
+  
 Together, these steps produce realistic nucleosynthesis predictions and provide insight into how nuclear uncertainties affect the formation of heavy isotopes in stars. The workflow mirrors modern computational methods used in nuclear astrophysics research.
+
 ---
                          ┌─────────────────────────┐
                          │ TALYS σ(E) Cross Section│
@@ -26,25 +27,25 @@ Together, these steps produce realistic nucleosynthesis predictions and provide 
                      ┌────────────────────────────────┐
                      │ 1) Compute MACS(kT) from σ(E)  │
                      │    (Code: compute_macs)        │
-                     └──────────────────┬─────────────┘
-                                        │
-                                        ▼
+                     └────────────────┬───────────────┘
+                                      │
+                                      ▼
                         ┌─────────────────────────────────┐
                         │ Compare TALYS MACS vs Experiment│
                         │   (Code: compare_macs)          │
-                        └──────────────────┬──────────────┘
-                                           │
-                                           ▼
+                        └──────────────┬──────────────────┘
+                                       │
+                                       ▼
                      ┌────────────────────────────────────┐
                      │ Plot Maxwellian Integrand          │
                      │   (Code: plot_integrand)           │
-                     └────────────────────┬───────────────┘
-                                          │
-                                          ▼
+                     └─────────────────┬──────────────────┘
+                                       │
+                                       ▼
                    ┌───────────────────────────────────────────┐
                    │ Monte-Carlo MACS Uncertainty (±10%)       │
                    │  (Code: mc_macs_uncertainty)              │
-                   └────────────────────┬──────────────────────┘
+                   └─────────────────────┬─────────────────────┘
                                          │
                                          ▼
       ┌──────────────────────────────────────────────────────────────────┐
