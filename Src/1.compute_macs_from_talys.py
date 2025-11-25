@@ -111,10 +111,10 @@ def compute_macs_for_files(talys_files, kT_list_keV, out_csv_path):
 if __name__ == "__main__":
 
     talys_files = [
-        "/home/zilani/1.Md_Zilani/Python/Project 2/Data/56Fe_ng_TALYS.csv",
-        "/home/zilani/1.Md_Zilani/Python/Project 2/Data/57Fe_ng_TALYS.csv",
-        "/home/zilani/1.Md_Zilani/Python/Project 2/Data/58Fe_ng_TALYS.csv",
-        "/home/zilani/1.Md_Zilani/Python/Project 2/Data/59Fe_ng_TALYS.csv"
+        "/home/zilani/1.Md_Zilani/Python/Project 2/Data/⁵⁶Fe(n,g).csv",
+        "/home/zilani/1.Md_Zilani/Python/Project 2/Data/⁵⁷Fe(n,g).csv",
+        "/home/zilani/1.Md_Zilani/Python/Project 2/Data/⁵⁸Fe(n,g).csv",
+        "/home/zilani/1.Md_Zilani/Python/Project 2/Data/⁵⁹Fe(n,g).csv"
     ]
 
     kT_list = [5.0, 10.0, 15.0, 20.0, 25.0, 30.0, 40.0, 50.0, 60.0, 80.0, 100.0]  # keV
