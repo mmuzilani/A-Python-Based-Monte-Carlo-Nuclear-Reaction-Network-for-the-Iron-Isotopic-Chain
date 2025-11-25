@@ -10,8 +10,6 @@ This project implements a complete, end-to-end workflow:
 - Computation of Maxwellian-Averaged Cross Sections through numerical integration
 - Validation of TALYS MACS against experimental data
 - Monte-Carlo propagation of cross-section uncertainties
-- Calculation of reaction rates and decay constants
-- Construction of a five-isotope neutron-capture + β-decay reaction network
 - Numerical solution of the ODE system using matrix exponential (Schur decomposition)
 - Abundance evolution and uncertainty quantification
   
@@ -57,29 +55,6 @@ Together, these steps produce realistic nucleosynthesis predictions and provide 
       └──────────────────────────────────────────────────────────────────┘
 ---
 
-![MACS Comparison](https://private-user-images.githubusercontent.com/238969820/518498921-d8099c7e-ac0b-4bc0-bc3e-a5f8673cbf6e.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjQwNTUyNzksIm5iZiI6MTc2NDA1NDk3OSwicGF0aCI6Ii8yMzg5Njk4MjAvNTE4NDk4OTIxLWQ4MDk5YzdlLWFjMGItNGJjMC1iYzNlLWE1Zjg2NzNjYmY2ZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUxMTI1JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MTEyNVQwNzE2MTlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1lNDA4ODk5YjY4NDk3NjEwNGNlYjEzYjEwYzQ5MmU0OGY4MDU0NjAwODdhOGM0YTNiOTM1NTBjNWVhYzlmNTg2JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.-zwsPBXkMLwJWyvaNAuJ-7M732u_9M94NeUH9hA8CMg)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Nuclear Reaction Data
 
 In stellar environments, heavy elements are built through a sequence of neutron-capture reactions and β-decays.  
@@ -121,26 +96,6 @@ This σ(E) dataset is the **most fundamental input**, because *all other astroph
 
 ---
 
-##  Neutron Energy in Stars and Maxwell–Boltzmann Distribution
-
-Inside stars, neutrons are in **thermal equilibrium** with the plasma.  
-They do **not** have one fixed energy. Instead, they follow the **Maxwell–Boltzmann distribution**:
-
-$$
-f(E) \propto E^{1/2} \, e^{-E/kT}.
-$$
-
-Where:
-
-- **kT** = thermal energy (in keV)  
-- **T** = stellar temperature  
-- **E** = neutron kinetic energy  
-
-Because σ(E) depends on E, the *effective reaction probability* requires weighting σ(E) by this distribution.  
-Thus, a simple σ(E) curve is not enough — we must average it over the Maxwellian.
-
----
-
 ## Maxwellian-Averaged Cross Section (MACS)
 
 The **MACS** is the average of σ(E) over a Maxwell–Boltzmann distribution:
@@ -178,46 +133,6 @@ I prepare **four experimental MACS files**, one for each neutron-capture step:
 - ⁵⁹Fe(n,γ) → 60Fe 
 
 These experimental values allow **validation of TALYS output**.
-
----
-
-## Radioactive Decay Data and Decay Constants
-
-Not all isotopes in the chain are stable:
-
-- **Stable:** 56Fe, 57Fe, 58Fe  
-- **Radioactive:** 59Fe, 60Fe  
-
-Radioactive isotopes decay according to:
-
-$$
-N(t) = N_0 \, e^{-\lambda t},
-$$
-
-where the **decay constant** λ is:
-
-$$
-\lambda_\beta = \frac{\ln 2}{T_{1/2}}.
-$$
-
-# From MACS to Reaction Rate ⟨σv⟩
-
-
-In a star, particles move rapidly due to thermal motion. Thus, the true interaction strength must consider:
-
-- cross section σ(E)  
-- neutron velocity v(E)  
-- Maxwell–Boltzmann energy distribution  
-
-The **reaction rate per particle pair** is:
-
-$$
-\langle \sigma v \rangle
-= \int_0^\infty \sigma(E) \, v(E) \, f(E,T) \, dE .
-$$
-
-This tells us how frequently neutron captures actually happen in a stellar plasma.
-
 ---
 
 ## Relation between MACS and ⟨σv⟩
@@ -229,24 +144,16 @@ $$
 $$
 
 where
-
-$$
-v_T = \sqrt{\frac{2kT}{m_n}}
-$
-is the thermal neutron speed.
-
-Thus:
 - **MACS** captures the energy dependence (σ(E) and Maxwellian weight)
 - **v_T** adds the thermal velocity scale
 
 Together, they produce a proper stellar reaction rate.
 
-**Units of ⟨σv⟩:**  
-m³ s⁻¹
+**Units of ⟨σv⟩:**  m³ s⁻¹
 
 ---
 
-# From Reaction Rate to Capture Rate λ
+## From Reaction Rate to Capture Rate λ
 
 Stars contain an enormous number of free neutrons.  
 If neutron density is \( n_n \), the **capture rate** per nucleus is:
@@ -273,35 +180,7 @@ These λ values form the backbone of the reaction network.
 
 ---
 
-# β-Decay Rates from Half-Lives
-
-Some isotopes are unstable:
-
-- 59Fe → β⁻ decay  
-- 60Fe → β⁻ decay  
-
-A radioactive nucleus decays according to:
-
-$$
-N(t) = N_0 e^{-\lambda_\beta t},
-$$
-
-where the decay constant is:
-
-$$
-\lambda_\beta = \frac{\ln 2}{T_{1/2}}.
-$$
-
-Meaning:
-
-- Short \(T_{1/2}\) → fast decay (large λβ)  
-- Long \(T_{1/2}\) → slow decay (small λβ)  
-
-These λβ values are essential in the final network equations.
-
----
-
-# Constructing the 5-Isotope Nuclear Reaction Network
+## Constructing the 5-Isotope Nuclear Reaction Network
 
 The isotopes form a sequential chain:
 
@@ -309,7 +188,7 @@ $$
 ^{56}Fe \rightarrow {}^{57}Fe \rightarrow {}^{58}Fe \rightarrow {}^{59}Fe \rightarrow {}^{60}Fe.
 $$
 
-# Matrix Form of the Network (for Fast Numerical Solving)
+## Matrix Form of the Network (for Fast Numerical Solving)
 
 We can rewrite the system in **matrix form**:
 
@@ -345,43 +224,9 @@ SciPy computes this using:
 - Smooth time sampling  
 
 This yields the abundance curves.
-
 ---
 
-# Meaning of the Abundance Plots
-
-The numerical solution gives abundance curves:
-
-- \(Y_{56}(t)\) decreases (converted into heavier isotopes)  
-- \(Y_{57}(t)\) rises, then falls  
-- \(Y_{58}(t)\) rises later  
-- \(Y_{59}(t)\) rises but decays due to β-decay  
-- \(Y_{60}(t)\) accumulates last (final product)  
-
-These curves represent **real astrophysical nucleosynthesis** under neutron irradiation.
-
----
-
-## Cross Section Visualization — σ(E) vs Energy
-
-The neutron-capture cross section σ(E) shows the probability of capture as a function of neutron energy.  
-Plotting σ(E):
-
-- Reveals **resonances**  
-- Shows energy structure of the reaction  
-- Helps identify errors in TALYS data  
-- Forms the base for all later calculations  
-
-### Interpretation of the Plot
-
-- **X-axis:** neutron energy \(E\) (MeV)  
-- **Y-axis:** cross section \(\sigma(E)\) (barn)  
-- Sharp peaks → resonance regions  
-- Smooth/flat parts → non-resonant behavior  
-
-Correct σ(E) structure ensures accurate MACS and reaction rates.
-
----
+# Outcome Of this project.
 
 ## Maxwellian Integrand Plot — Checking the MACS Calculation
 
@@ -408,6 +253,9 @@ For s-process temperatures (kT = 30 keV), the peak usually lies around 20–60 k
 
 This plot is a **scientific validation** of MACS.
 
+![Image](https://github.com/user-attachments/assets/13bb9409-720a-4d55-b43b-ae79f2a828be)
+
+
 ---
 
 ## MACS Comparison — TALYS vs Experimental
@@ -423,41 +271,39 @@ These values are plotted together as:
 - Points for experiment  
 - Text labels indicating percentage difference  
 
-## Reaction Rate vs Temperature — ⟨σv⟩(T)
+![Image](https://github.com/user-attachments/assets/c9a519ac-e283-43ce-b31c-1caeae30a12e)
 
-Reaction rate increases with temperature due to increased neutron velocities:
+## Interpretation of Monte-Carlo MACS Distribution Plots
 
-$$
-\langle \sigma v \rangle = v_T \times MACS(kT),
-$$
+These plots show the Monte-Carlo probability distributions of the Maxwellian-Averaged Cross Section (MACS) for different Fe isotopes at stellar temperatures kT = 10, 30, and 60 keV.
+Each plot corresponds to one isotope (⁵⁹Fe, ⁵⁷Fe, ⁵⁸Fe) and one temperature.
 
-so temperature strongly shapes nucleosynthesis.
+1. Histogram (Green Bars) Shows how the MACS value changes when random ±10% uncertainties are applied to TALYS cross sections σ(E).
+This represents the probability density of getting a certain MACS value.
 
-### Interpretation of the Plot
+2. A smoothed probability curve that shows the underlying distribution.
 
-- **X-axis:** temperature (10⁷–10⁹ K)  
-- **Y-axis:** reaction rate ⟨σv⟩ (m³/s)  
-- Smooth rising curve  
-- At low T → slow neutrons → slow capture  
-- At high T → fast neutrons → rapidly increasing capture rate  
-- Shape determines reaction competition and branching  
+3. Red Dashed Line: The mean MACS computed from all Monte-Carlo samples.
 
-This plot connects laboratory σ(E) to stellar behavior.
+4. Pink Shaded Region (±1σ Band): The 68% confidence interval, also called the 16th–84th percentile range.
 
----
+### Results
+- MACS Distributions Are Approximately Gaussian
+- All histograms are smooth and slightly symmetric → the uncertainty propagation is stable.
+- Higher Temperature = Lower MACS. This is physically correct because at higher temperature, neutrons are faster → lower probability of capture.
+- Uncertainty (Width of Histogram) becomes smaller at high kT
+- MACS becomes less sensitive to σ(E) uncertainties at high temperature.
+- Each isotope responds differently\
+  ⁵⁷Fe(n,γ) shows the largest spread → largest uncertainty.\
+  ⁵⁸Fe(n,γ) and ⁵⁹Fe(n,γ) show tighter distributions → lower uncertainty.
 
-## Abundance Evolution — Solution of the 5-Isotope Network
+![Image](https://github.com/user-attachments/assets/66106c57-217e-44f2-91d8-3c771a36c879)
 
-we compute the time evolution of all five Fe isotopes.
-- **56Fe** → initial seed, decreases  
-- **57Fe** → rises then falls  
-- **58Fe** → rises at later times  
-- **59Fe** → rises but eventually decays  
-- **60Fe** → final product, accumulates  
+![Image](https://github.com/user-attachments/assets/f171e8b0-c086-4d0c-ac74-40f48cc16118)
 
-These curves represent **real nucleosynthesis flow** under neutron exposure.
+![Image](https://github.com/user-attachments/assets/ed4bc87d-0669-4772-b6ad-292b25cbe3ae)
 
----
+![Image](https://github.com/user-attachments/assets/ec58ccb3-9fab-4a9a-8be6-0340cdeb6f5f)
 
 ## Monte-Carlo Uncertainty Bands — (16th–84th Percentiles)
 
@@ -485,4 +331,72 @@ Repeating the network simulation many times gives many abundance curves. From al
 
 Uncertainty quantification is essential in modern nuclear astrophysics.
 
+![Image](https://github.com/user-attachments/assets/0e34008c-b62a-4f4f-95b6-ba042b566116)
 ---
+
+# Conclusion
+
+This project successfully demonstrates a complete, end-to-end workflow for constructing a realistic neutron-capture reaction model using modern nuclear-physics tools. Beginning with TALYS-generated cross sections, we computed Maxwellian-Averaged Cross Sections (MACS), validated them against experimental KADoNiS data, quantified uncertainties through Monte-Carlo simulations, and finally propagated those uncertainties into a full 5-isotope Fe reaction network. The combined analysis provides both deterministic and statistical insight into neutron-capture nucleosynthesis.
+
+## Major Outcomes of the Project
+```
+1. Accurate MACS Computation From TALYS.
+   - Developed a robust numerical integrator for Maxwellian folding.
+   - Successfully generated MACS values across 10–100 keV for: ⁵⁶Fe(n,γ), ⁵⁷Fe(n,γ), ⁵⁸Fe(n,γ), ⁵⁹Fe(n,γ)
+   - Verified integrand behavior to ensure correct Maxwellian weighting.
+
+2. TALYS vs Experimental Validation
+  - Compared TALYS MACS against KADoNiS data.
+  - Found good agreement for ⁵⁷Fe, ⁵⁸Fe, and ⁵⁹Fe, with reasonable percent deviations.
+  - Identified ⁵⁶Fe MACS mismatch, discussed later.
+
+3. Monte-Carlo Uncertainty Quantification
+  - Implemented a ±10% σ(E) perturbation model.
+  - Generated Gaussian-like distributions for MACS.
+  - Extracted mean, standard deviation, and 1σ confidence intervals.
+  - Determined that uncertainty decreases at higher stellar temperatures (kT).
+
+4. Reaction Network Solution With Uncertainty Propagation
+ - Constructed a realistic 5-isotope chain: ⁵⁶Fe → ⁵⁷Fe → ⁵⁸Fe → ⁵⁹Fe → ⁶⁰Fe
+ - Included both neutron-capture rates and β–decay rates.
+ - Solved using the numerical matrix exponential (Schur method).
+ - Computed median, 16th, and 84th percentiles for each isotope abundance.
+ - Produced uncertainty bands showing how MACS variation affects nucleosynthesis.
+```
+
+## Key Observations
+```
+### Temperature Dependence
+- MACS decreases as kT increases, as expected from nuclear statistical physics.
+- Reaction rates λ ∝ ⟨σv⟩ follow consistent scaling with neutron density.
+
+### Isotope Behavior in the Network
+- ⁵⁶Fe decreases monotonically (seed consumed).
+- ⁵⁷Fe & ⁵⁸Fe rise and fall as intermediate isotopes.
+- ⁵⁹Fe rises but is partially removed by β–decay.
+- ⁶⁰Fe accumulates as the final product.
+
+### Monte-Carlo Distributions
+
+- All isotopes show stable Monte-Carlo convergence.
+- Broadest uncertainty at low kT (10 keV), narrowest at 60 keV.
+- ⁵⁷Fe(n,γ) shows the largest sensitivity to σ(E) variations.
+```
+
+### Note on the Inconsistency of ⁵⁶Fe MACS
+
+```
+Among all isotopes, 56Fe showed an inconsistent or irregular MACS distribution. Possible reasons include:
+- 56Fe has strong resonance peaks at low energies.
+- If σ(E) grid spacing is coarse, the Maxwellian integral becomes inaccurate.
+- 56Fe is a doubly magic-like nucleus → lower capture probability → small variations in σ(E) dramatically change MACS.
+```
+
+Overall, this project successfully reproduces the essential components of an astrophysical neutron-capture study, from raw nuclear data to reaction-network evolution with full uncertainty quantification. The workflow demonstrates how theoretical cross sections, experimental MACS, statistical sampling, and ODE-based nucleosynthesis models all come together to produce physically meaningful predictions.
+
+
+
+
+
+
+
