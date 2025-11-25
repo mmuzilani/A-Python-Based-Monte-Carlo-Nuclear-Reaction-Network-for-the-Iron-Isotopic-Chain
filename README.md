@@ -56,6 +56,30 @@ Together, these steps produce realistic nucleosynthesis predictions and provide 
       │ (Code: full_network_solver)                                      │
       └──────────────────────────────────────────────────────────────────┘
 ---
+
+![MACS Comparison](https://private-user-images.githubusercontent.com/238969820/518498921-d8099c7e-ac0b-4bc0-bc3e-a5f8673cbf6e.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjQwNTUyNzksIm5iZiI6MTc2NDA1NDk3OSwicGF0aCI6Ii8yMzg5Njk4MjAvNTE4NDk4OTIxLWQ4MDk5YzdlLWFjMGItNGJjMC1iYzNlLWE1Zjg2NzNjYmY2ZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUxMTI1JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MTEyNVQwNzE2MTlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1lNDA4ODk5YjY4NDk3NjEwNGNlYjEzYjEwYzQ5MmU0OGY4MDU0NjAwODdhOGM0YTNiOTM1NTBjNWVhYzlmNTg2JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.-zwsPBXkMLwJWyvaNAuJ-7M732u_9M94NeUH9hA8CMg)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Nuclear Reaction Data
 
 In stellar environments, heavy elements are built through a sequence of neutron-capture reactions and β-decays.  
