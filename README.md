@@ -148,10 +148,10 @@ TALYS gives **theoretical** σ(E). But stars follow **real nuclear physics**, so
 
 I prepare **four experimental MACS files**, one for each neutron-capture step:
 
-- 56Fe(n,γ)57Fe  
-- 57Fe(n,γ)58Fe  
-- 58Fe(n,γ)59Fe  
-- 59Fe(n,γ)60Fe  
+- ⁵⁶Fe(n,γ) → ⁵⁷Fe  
+- ⁵⁷Fe(n,γ) → ⁵⁸Fe  
+- ⁵⁸Fe(n,γ) → ⁵⁹Fe  
+- ⁵⁹Fe(n,γ) → 60Fe 
 
 These experimental values allow **validation of TALYS output**.
 
@@ -240,10 +240,10 @@ Interpretation:
 
 In my project, λ is computed for four Fe captures:
 
-- 56Fe → 57Fe  
-- 57Fe → 58Fe  
-- 58Fe → 59Fe  
-- 59Fe → 60Fe  
+- ⁵⁶Fe(n,γ) → ⁵⁷Fe  
+- ⁵⁷Fe(n,γ) → ⁵⁸Fe  
+- ⁵⁸Fe(n,γ) → ⁵⁹Fe  
+- ⁵⁹Fe(n,γ) → 60Fe  
 
 These λ values form the backbone of the reaction network.
 
